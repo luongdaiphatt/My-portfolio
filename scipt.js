@@ -95,3 +95,34 @@ pages.forEach((_, index) => {
         },500)
     }, (index +1) *200 +2100)
 })
+
+//Contact me
+document.addEventListener("DOMContentLoaded", function () {
+    emailjs.init("-yo_FkJpX13HWbQv0"); // Khởi tạo EmailJS
+
+    document.getElementById("contact-form").addEventListener("submit", function (event) {
+        event.preventDefault(); // ❌ Ngăn chặn reload trang
+        alert("Email đang được gửi...")
+        var params = {
+            sendername: document.querySelector("#sendername").value,
+            to: document.querySelector("#to").value,
+            message: document.querySelector("#message").value,
+        };
+
+        var serviceID = "service_1d13dtc";
+        var templateID = "template_0grq13m";
+
+        emailjs.send(serviceID, templateID, params)
+            .then(function (response) {
+                alert("✅ Email đã được gửi thành công!");
+                document.getElementById("contact-form").reset(); // Xóa dữ liệu form sau khi gửi
+            })
+            .catch(function (error) {
+                alert("❌ Gửi email thất bại. Vui lòng thử lại!");
+                console.error("Lỗi:", error);
+            });
+    });
+});
+
+
+
